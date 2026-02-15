@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Teacher Dashboard - PFE Platform</title>
+    <meta name="description" content="Accessible teacher dashboard for filtering, correcting, and approving student submissions.">
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="css/teacher.css?v=20260214m">
+</head>
+<body>
+    <a class="skip-link" href="#dashboard-section">Skip to dashboard content</a>
+
+    <main id="app" class="layout-shell" aria-label="Teacher workspace">
+        <section id="login-section" class="surface login-panel" aria-labelledby="login-heading">
+            <header class="section-head">
+                <h1 id="login-heading">Teacher Login</h1>
+                <p class="muted">Use your assigned teacher credentials to access submissions.</p>
+            </header>
+            <form id="login-form" class="stack-form" novalidate>
+                <div class="field">
+                    <label for="login-teacher-name">Teacher Name</label>
+                    <input type="text" id="login-teacher-name" autocomplete="username" required placeholder="e.g. tarek1">
+                </div>
+                <div class="field">
+                    <label for="login-password">Password</label>
+                    <input type="password" id="login-password" autocomplete="current-password" required placeholder="Enter password">
+                </div>
+                <button type="submit" class="btn btn-primary">Access Dashboard</button>
+            </form>
+        </section>
+
+        <section id="dashboard-section" class="hidden" aria-label="Instructor dashboard">
+            <header class="surface hero">
+                <div>
+                    <h1>Instructor Dashboard</h1>
+                    <p class="muted-light">Review, correct, and approve submissions in one workflow.</p>
+                </div>
+                <button id="logout-btn" class="btn btn-secondary" type="button">Logout</button>
+            </header>
+
+            <section class="surface dashboard-controls" aria-labelledby="filter-heading">
+                <div class="section-head inline">
+                    <h2 id="filter-heading">Filters</h2>
+                    <button id="clear-filters-btn" class="btn btn-ghost" type="button">Clear Filters</button>
+                </div>
+                <div class="filter-grid">
+                    <div class="field">
+                        <label for="filter-group">Group</label>
+                        <input type="text" id="filter-group" placeholder="e.g. G1">
+                    </div>
+                    <div class="field">
+                        <label for="filter-year">Year / Level</label>
+                        <select id="filter-year">
+                            <option value="">All Levels</option>
+                            <option value="L1">L1</option>
+                            <option value="L2">L2</option>
+                            <option value="L3">L3</option>
+                            <option value="M1">M1</option>
+                            <option value="M2">M2</option>
+                        </select>
+                    </div>
+                    <div class="field">
+                        <label for="filter-student-name">Student Name</label>
+                        <input type="text" id="filter-student-name" placeholder="Type student name">
+                    </div>
+                </div>
+            </section>
+
+            <section class="surface" aria-labelledby="bulk-heading">
+                <h2 id="bulk-heading">Bulk Actions</h2>
+                <p class="muted">Works on currently filtered results.</p>
+                <div class="bulk-grid">
+                    <article class="panel panel-warn" aria-labelledby="bulk-correction-title">
+                        <h3 id="bulk-correction-title">Bulk AI Correction</h3>
+                        <p class="hint">Enter adds a new line. Ctrl+Enter or Cmd+Enter starts correction.</p>
+                        <div class="selection-tools">
+                            <span id="selected-submissions-count" class="badge" aria-live="polite">Selected: 0</span>
+                            <button id="select-filtered-btn" class="btn btn-chip" type="button">Select Filtered</button>
+                            <button id="clear-selection-btn" class="btn btn-chip" type="button">Clear Selection</button>
+                        </div>
+                        <label for="bulk-correction-instructions" class="sr-only">Bulk correction instructions</label>
+                        <textarea id="bulk-correction-instructions" rows="4" placeholder="Shared correction barème for selected/filtered students."></textarea>
+                        <button id="bulk-correction-btn" class="btn btn-amber" type="button">Run AI Correction for Filtered</button>
+                        <div class="split-actions">
+                            <button id="cancel-selected-corrections-btn" class="btn btn-danger" type="button">Cancel Current Correction (Selected)</button>
+                            <button id="restart-selected-corrections-btn" class="btn btn-dark" type="button">Start New Correction (Selected)</button>
+                        </div>
+                    </article>
+
+                    <article class="panel panel-good" aria-labelledby="bulk-approval-title">
+                        <h3 id="bulk-approval-title">Bulk Approval</h3>
+                        <p class="hint">Ctrl+Enter or Cmd+Enter from feedback or grade triggers approval.</p>
+                        <label for="bulk-approve-feedback">Shared feedback (optional)</label>
+                        <textarea id="bulk-approve-feedback" rows="3" placeholder="Shared teacher feedback..."></textarea>
+                        <label for="bulk-approve-grade">Fixed grade /20 (optional)</label>
+                        <input type="number" id="bulk-approve-grade" step="0.5" min="0" max="20" placeholder="e.g. 14.5">
+                        <button id="approve-bulk-btn" class="btn btn-success" type="button">Approve Filtered</button>
+                    </article>
+                </div>
+            </section>
+
+            <section class="list-grid" aria-label="Submission lists">
+                <article class="surface">
+                    <h2>Not Approved Submissions <span class="muted">(checkboxes available)</span></h2>
+                    <div id="submissions-list-unapproved" class="list-box">
+                        <p class="empty">No submissions pending review.</p>
+                    </div>
+                </article>
+                <article class="surface">
+                    <h2>Approved Submissions</h2>
+                    <div id="submissions-list-approved" class="list-box">
+                        <p class="empty">No approved submissions found.</p>
+                    </div>
+                </article>
+            </section>
+
+            <section class="surface">
+                <details>
+                    <summary>Manage Students</summary>
+                    <div id="students-list" class="list-box">
+                        <p class="empty">No students found.</p>
+                    </div>
+                </details>
+            </section>
+
+            <section class="surface privacy-box" aria-labelledby="privacy-heading">
+                <h2 id="privacy-heading">Data & Privacy</h2>
+                <p class="muted">Only process student data needed for evaluation. Remove personal data when no longer necessary. Do not share credentials or private repositories externally.</p>
+                <p class="muted">This interface supports GDPR-aligned handling: purpose limitation, minimization, and controlled access by teacher account.</p>
+            </section>
+        </section>
+    </main>
+
+    <div id="review-modal" class="fixed inset-0 z-50 bg-black bg-opacity-50 hidden overflow-y-auto p-4" role="dialog" aria-modal="true" aria-labelledby="review-title">
+        <div class="bg-white rounded-lg w-11/12 max-w-5xl p-6 my-6 mx-auto review-modal-panel">
+            <h2 id="review-title" class="text-2xl font-bold mb-4">Review Evaluation: <span id="modal-student-name"></span></h2>
+
+            <section id="start-correction-section" class="modal-panel">
+                <h3>AI Correction Instructions (Barem)</h3>
+                <p>Enter instructions/barem for this submission, then run correction.</p>
+                <label for="correction-instructions" class="sr-only">Correction instructions</label>
+                <textarea id="correction-instructions" rows="4" placeholder="Example: evaluate correctness first, then code quality."></textarea>
+                <button id="start-ai-btn" class="btn btn-amber" type="button">Run AI Correction</button>
+            </section>
+
+            <div class="modal-content">
+                <div>
+                    <p class="modal-label">Repository</p>
+                    <a id="modal-repo-link" href="#" target="_blank" rel="noopener noreferrer"></a>
+                </div>
+                <div>
+                    <p class="modal-label">Evaluation Notes</p>
+                    <div id="modal-ai-feedback" class="feedback-box"></div>
+                </div>
+                <div class="field">
+                    <label for="modal-grade">Final Grade (/20)</label>
+                    <input type="number" id="modal-grade" step="0.5" min="0" max="20">
+                </div>
+                <div class="field">
+                    <label for="modal-teacher-feedback">Teacher Feedback (public to student)</label>
+                    <textarea id="modal-teacher-feedback" rows="3" placeholder="Clear and actionable feedback."></textarea>
+                </div>
+            </div>
+            <footer class="modal-actions">
+                <button id="close-modal" class="btn btn-ghost" type="button">Cancel</button>
+                <button id="approve-grade-btn" class="btn btn-success" type="button">Approve and Publish</button>
+            </footer>
+        </div>
+    </div>
+
+    <script src="js/teacher.js?v=20260214m"></script>
+</body>
+</html>

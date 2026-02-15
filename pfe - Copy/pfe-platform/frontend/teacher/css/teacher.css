@@ -1,0 +1,387 @@
+:root {
+    --bg: #f5f7fb;
+    --surface: #ffffff;
+    --surface-alt: #f8fafc;
+    --text: #0f172a;
+    --muted: #475569;
+    --line: #dbe2ea;
+    --primary: #0f5cc0;
+    --primary-hover: #0c4c9f;
+    --success: #0f7f45;
+    --warning: #b45309;
+    --danger: #b42318;
+    --ink-on-dark: #f8fafc;
+    --focus: #f59e0b;
+}
+
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    font-family: "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    background: radial-gradient(circle at 0 0, #e2ecff 0%, var(--bg) 30%) fixed;
+    color: var(--text);
+}
+
+.hidden {
+    display: none !important;
+}
+
+body.modal-open {
+    overflow: hidden;
+}
+
+.skip-link {
+    position: absolute;
+    top: -40px;
+    left: 8px;
+    z-index: 9999;
+    background: var(--primary);
+    color: #fff;
+    padding: 8px 12px;
+    border-radius: 6px;
+}
+
+.skip-link:focus {
+    top: 8px;
+}
+
+.layout-shell {
+    width: min(1200px, 100% - 2rem);
+    margin: 1rem auto 2rem;
+    display: grid;
+    gap: 1rem;
+}
+
+.surface {
+    background: var(--surface);
+    border: 1px solid var(--line);
+    border-radius: 14px;
+    padding: 1rem;
+    box-shadow: 0 6px 24px rgba(15, 23, 42, 0.05);
+}
+
+.section-head {
+    margin-bottom: 0.75rem;
+}
+
+.section-head.inline {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 0.75rem;
+}
+
+h1,
+h2,
+h3,
+p {
+    margin: 0;
+}
+
+h1 {
+    font-size: 1.4rem;
+    line-height: 1.3;
+}
+
+h2 {
+    font-size: 1.05rem;
+    margin-bottom: 0.5rem;
+}
+
+h3 {
+    font-size: 0.95rem;
+    margin-bottom: 0.4rem;
+}
+
+.muted {
+    color: var(--muted);
+    font-size: 0.92rem;
+}
+
+.muted-light {
+    color: #d7e6ff;
+}
+
+.hero {
+    display: flex;
+    justify-content: space-between;
+    gap: 1rem;
+    align-items: center;
+    background: linear-gradient(120deg, #0b2a52 0%, #123b73 46%, #0f5cc0 100%);
+    color: var(--ink-on-dark);
+}
+
+.login-panel {
+    max-width: 460px;
+    margin: 5vh auto;
+}
+
+.stack-form,
+.field {
+    display: grid;
+    gap: 0.5rem;
+}
+
+.stack-form {
+    gap: 0.85rem;
+}
+
+label {
+    font-weight: 600;
+    font-size: 0.9rem;
+}
+
+input,
+select,
+textarea,
+button {
+    font: inherit;
+}
+
+input,
+select,
+textarea {
+    width: 100%;
+    border: 1px solid #bac6d5;
+    border-radius: 10px;
+    padding: 0.6rem 0.7rem;
+    background: #fff;
+    color: var(--text);
+}
+
+textarea {
+    resize: vertical;
+}
+
+input:focus-visible,
+select:focus-visible,
+textarea:focus-visible,
+button:focus-visible,
+summary:focus-visible {
+    outline: 3px solid var(--focus);
+    outline-offset: 2px;
+}
+
+.btn {
+    border: 1px solid transparent;
+    border-radius: 10px;
+    padding: 0.6rem 0.85rem;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+.btn:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+}
+
+.btn-primary {
+    background: var(--primary);
+    color: #fff;
+}
+
+.btn-primary:hover {
+    background: var(--primary-hover);
+}
+
+.btn-secondary {
+    background: transparent;
+    color: #fff;
+    border-color: rgba(255, 255, 255, 0.6);
+}
+
+.btn-ghost {
+    background: #eef2f7;
+    border-color: #cdd6e1;
+    color: #0f172a;
+}
+
+.btn-chip {
+    background: #f3f6fb;
+    border-color: #ced8e4;
+    color: #1e293b;
+}
+
+.btn-amber {
+    background: #b45309;
+    color: #fff;
+}
+
+.btn-success {
+    background: var(--success);
+    color: #fff;
+}
+
+.btn-danger {
+    background: var(--danger);
+    color: #fff;
+}
+
+.btn-dark {
+    background: #1e293b;
+    color: #fff;
+}
+
+.filter-grid,
+.bulk-grid,
+.split-actions,
+.list-grid {
+    display: grid;
+    gap: 0.8rem;
+}
+
+.panel {
+    border-radius: 12px;
+    padding: 0.9rem;
+    border: 1px solid var(--line);
+    background: var(--surface-alt);
+    display: grid;
+    gap: 0.6rem;
+}
+
+.panel-warn {
+    border-color: #efd7b0;
+    background: #fff8ed;
+}
+
+.panel-good {
+    border-color: #b9e3cc;
+    background: #f4fbf7;
+}
+
+.hint {
+    color: var(--muted);
+    font-size: 0.82rem;
+}
+
+.selection-tools {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.45rem;
+    align-items: center;
+}
+
+.badge {
+    font-weight: 700;
+    font-size: 0.8rem;
+    color: #7a3c00;
+    background: #ffe9c8;
+    border: 1px solid #efc98c;
+    padding: 0.3rem 0.6rem;
+    border-radius: 999px;
+}
+
+.list-box {
+    max-height: 520px;
+    overflow: auto;
+    display: grid;
+    gap: 0.6rem;
+    padding-right: 2px;
+}
+
+.empty {
+    color: #64748b;
+    font-style: italic;
+}
+
+.privacy-box {
+    background: linear-gradient(180deg, #f8fbff 0%, #f2f7ff 100%);
+}
+
+details > summary {
+    cursor: pointer;
+    font-weight: 700;
+    list-style: none;
+}
+
+details > summary::-webkit-details-marker {
+    display: none;
+}
+
+#review-modal {
+    backdrop-filter: blur(4px);
+}
+
+.review-modal-panel {
+    max-height: 80vh;
+    overflow-y: auto;
+}
+
+#modal-student-name {
+    color: #0f5cc0;
+}
+
+.modal-panel {
+    display: grid;
+    gap: 0.6rem;
+    background: #fff8ed;
+    border: 1px solid #f2d5a7;
+    border-radius: 10px;
+    padding: 0.9rem;
+    margin-bottom: 0.8rem;
+}
+
+.modal-content {
+    display: grid;
+    gap: 0.8rem;
+}
+
+.modal-label {
+    font-size: 0.82rem;
+    color: #64748b;
+    font-weight: 700;
+    text-transform: uppercase;
+}
+
+.feedback-box {
+    white-space: pre-wrap;
+    background: #f8fafc;
+    border: 1px solid var(--line);
+    border-radius: 10px;
+    padding: 0.7rem;
+    min-height: 80px;
+}
+
+.modal-actions {
+    margin-top: 0.8rem;
+    display: flex;
+    justify-content: flex-end;
+    gap: 0.5rem;
+}
+
+.sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
+}
+
+@media (min-width: 700px) {
+    .layout-shell {
+        margin-top: 1.2rem;
+    }
+
+    h1 {
+        font-size: 1.65rem;
+    }
+
+    .filter-grid {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+
+    .bulk-grid,
+    .list-grid,
+    .split-actions {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+}

@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Portal - PFE Platform</title>
+    <meta name="description" content="Student portal for submitting repositories and reviewing published grades.">
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="css/student.css?v=20260214b">
+</head>
+<body>
+    <a class="skip-link" href="#dashboard-section">Skip to student dashboard</a>
+
+    <main id="app" class="layout-shell" aria-label="Student workspace">
+        <section id="login-section" class="surface login-panel" aria-labelledby="login-title">
+            <header class="section-head">
+                <h1 id="login-title">Student Login</h1>
+                <p class="muted">Use your full name and student ID to access submissions and grades.</p>
+            </header>
+
+            <form id="login-form" class="stack-form" novalidate>
+                <div class="field">
+                    <label for="login-name">Full Name</label>
+                    <input type="text" id="login-name" autocomplete="name" required placeholder="e.g. Alice Johnson">
+                </div>
+                <div class="field">
+                    <label for="login-student-id">Student ID</label>
+                    <input type="text" id="login-student-id" autocomplete="username" required placeholder="e.g. 2024001234">
+                </div>
+                <button type="submit" class="btn btn-primary">Enter Portal</button>
+            </form>
+        </section>
+
+        <section id="dashboard-section" class="hidden" aria-label="Student dashboard">
+            <header class="surface hero">
+                <div>
+                    <h1>Welcome, <span id="student-name-display"></span></h1>
+                    <p class="muted-light">Submit repository work and follow publication status.</p>
+                </div>
+                <button id="logout-btn" class="btn btn-danger-outline" type="button">Logout</button>
+            </header>
+
+            <section class="grid-shell" aria-label="Submission and grades">
+                <article class="surface">
+                    <h2>Submit Assignment</h2>
+                    <p class="muted">Provide teacher, group, level, and repository link.</p>
+                    <form id="submit-repo-form" class="stack-form">
+                        <div class="field">
+                            <label for="submit-teacher">Assigned Teacher</label>
+                            <select id="submit-teacher" required>
+                                <option value="">Loading teachers...</option>
+                            </select>
+                        </div>
+                        <div class="grid-2">
+                            <div class="field">
+                                <label for="submit-group">Group</label>
+                                <input type="text" id="submit-group" placeholder="e.g. G1" required>
+                            </div>
+                            <div class="field">
+                                <label for="submit-year">Year / Level</label>
+                                <select id="submit-year" required>
+                                    <option value="">Select Level</option>
+                                    <option value="L1">L1</option>
+                                    <option value="L2">L2</option>
+                                    <option value="L3">L3</option>
+                                    <option value="M1">M1</option>
+                                    <option value="M2">M2</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="field">
+                            <label for="repo-url">GitHub Repository URL</label>
+                            <input type="url" id="repo-url" placeholder="https://github.com/username/repo" required>
+                        </div>
+                        <button type="submit" class="btn btn-success">Submit for AI Evaluation</button>
+                    </form>
+                    <div id="submission-status" class="status-box hidden" aria-live="polite"></div>
+                </article>
+
+                <article class="surface">
+                    <h2>My Grades</h2>
+                    <p class="muted">Published results appear here. Pending submissions stay in review.</p>
+                    <div id="grades-list" class="grades-list">
+                        <p class="empty">No grades published yet.</p>
+                    </div>
+                </article>
+            </section>
+
+            <section class="surface privacy-box" aria-labelledby="privacy-heading">
+                <h2 id="privacy-heading">Data & Privacy</h2>
+                <p class="muted">Only submit repository links and learning data needed for evaluation. Personal data is used for academic tracking and feedback publication only.</p>
+            </section>
+        </section>
+    </main>
+
+    <script src="js/student.js?v=20260214b"></script>
+</body>
+</html>
