@@ -2,7 +2,7 @@ import sys
 
 def main():
     # Read the input line and clean it
-    line = sys.stdin.read().strip()
+   
     
     if not line:
         print("0")
