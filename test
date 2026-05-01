@@ -1,0 +1,29 @@
+import sys
+
+def main():
+    # Read the input line and clean it
+    line = sys.stdin.read().strip()
+    
+    if not line:
+        print("0")
+        print("")
+        print("No Python")
+        return
+
+    words = line.split()
+    
+    # 1. Word Count
+    print(len(words))
+    
+    # 2. Longest Word
+    longest_word = max(words, key=len)
+    print(longest_word)
+    
+    # 3. Python Check (Case-Insensitive)
+    if "python" in line.lower():
+        print("Found Python")
+    else:
+        print("No Python")
+
+if __name__ == "__main__":
+    main()
