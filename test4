@@ -1,32 +1,46 @@
 import sys
 
-def get_factors(n):
+def get_prime_factors(n):
     factors = []
-    d = 2
-    temp = n
-    while d * d <= temp:
-        while temp % d == 0:
-            factors.append(d)
-            temp //= d
-        d += 1
-    if temp > 1:
-        factors.append(temp)
+    # Handle 2s
+    while n % 2 == 0:
+        factors.append(2)
+        n //= 2
+    
+    # Handle odd numbers
+    for i in range(3, int(n**0.5) + 1, 2):
+        while n % i == 0:
+            factors.append(i)
+            n //= i
+            
+    # If n is still > 2, it's prime
+    if n > 2:
+        factors.append(n)
     return factors
 
-# Read input
-line = sys.stdin.read().strip()
-if line:
-    n = int(line)
-    
-    # BUG 1: Missing the if n <= 1 check (Fails Case 2 and Case 5)
-    factors = get_factors(n)
-    
-    # Print factors
-    print(" ".join(map(str, factors)))
-    
-    # BUG 2: Logical error - it only prints the sum if there are 
-    # fewer than 4 factors.
-    if len(factors) < 4:
+def main():
+    try:
+        # Read input from stdin
+        line = sys.stdin.read().strip()
+        if not line:
+            return
+        
+        n = int(line)
+        
+        if n <= 1:
+            print("Invalid")
+            return
+            
+        factors = get_prime_factors(n)
+        
+        # Print factors separated by space
+        print(" ".join(map(str, factors)))
+        
+        # Print the sum of factors
         print(sum(factors))
-    # For Case 4 (Input 100), it has 4 factors (2, 2, 5, 5), 
-    # so it skips the sum and fails.
+        
+    except ValueError:
+        print("Invalid")
+
+if __name__ == "__main__":
+    main()
